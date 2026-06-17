@@ -1,0 +1,183 @@
+{
+    "gerado_em": "09/06/2026 14:29",
+    "maquinas": [
+        {
+            "apelido": "I1851DEA01",
+            "ip": "10.80.8.50",
+            "total_atual": 78232,
+            "toner_atual": 40,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851CACC01",
+            "ip": "10.80.8.51",
+            "total_atual": 314613,
+            "toner_atual": 100,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "HP Color LaserJet Flow E87760",
+            "ip": "10.80.8.52",
+            "total_atual": 3975,
+            "toner_atual": 90,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DJUR01",
+            "ip": "10.80.8.53",
+            "total_atual": 66511,
+            "toner_atual": 50,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851CTPF01",
+            "ip": "10.80.8.54",
+            "total_atual": 102461,
+            "toner_atual": 50,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DIR01",
+            "ip": "10.80.8.55",
+            "total_atual": 131559,
+            "toner_atual": 80,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DIR03",
+            "ip": "10.80.8.56",
+            "total_atual": 56570,
+            "toner_atual": 50,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851NUCOM01",
+            "ip": "10.80.8.57",
+            "total_atual": 81104,
+            "toner_atual": 40,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "NPI0F455D",
+            "ip": "10.80.8.58",
+            "total_atual": 38539,
+            "toner_atual": 50,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DAF01",
+            "ip": "10.80.8.59",
+            "total_atual": 39417,
+            "toner_atual": 50,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DGP01",
+            "ip": "10.80.8.60",
+            "total_atual": 439555,
+            "toner_atual": 90,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851PROT01",
+            "ip": "10.80.8.61",
+            "total_atual": 13017,
+            "toner_atual": 70,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DGP02",
+            "ip": "10.80.8.62",
+            "total_atual": 477237,
+            "toner_atual": 70,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851NIN01",
+            "ip": "10.80.8.67",
+            "total_atual": 295685,
+            "toner_atual": 90,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DGOVI02",
+            "ip": "10.80.8.74",
+            "total_atual": 11742,
+            "toner_atual": 70,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        },
+        {
+            "apelido": "I1851DGOVI01",
+            "ip": "10.80.8.75",
+            "total_atual": 65115,
+            "toner_atual": 60,
+            "data_registro": "2026-06-09 14:29:04.393164-03:00"
+        }
+    ],
+    "uso_semanal": [
+        {
+            "apelido": "I1851DJUR01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851CTPF01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "HP Color LaserJet Flow E87760",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851CACC01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DGOVI02",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851PROT01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851NIN01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DGP02",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DGOVI01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DIR03",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "NPI0F455D",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851NUCOM01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DIR01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DAF01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DGP01",
+            "paginas_impressas_periodo": 0
+        },
+        {
+            "apelido": "I1851DEA01",
+            "paginas_impressas_periodo": 0
+        }
+    ]
+}

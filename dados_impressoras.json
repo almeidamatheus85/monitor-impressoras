@@ -1,0 +1,155 @@
+[
+    {
+        "ip": "10.80.8.50",
+        "apelido": "I1851DEA01",
+        "status": "Online",
+        "numero_serie": "BRBSQ2W0DY",
+        "total_impressoes": "78,232.0",
+        "consumivel_preto": "40%",
+        "kit_adf": "80%"
+    },
+    {
+        "ip": "10.80.8.51",
+        "apelido": "I1851CACC01",
+        "status": "Online",
+        "numero_serie": "BRBSQ3019P",
+        "total_impressoes": "314,613.8",
+        "consumivel_preto": "100%",
+        "kit_adf": "60%"
+    },
+    {
+        "ip": "10.80.8.52",
+        "apelido": "HP Color LaserJet Flow E87760",
+        "status": "Online",
+        "numero_serie": "BRBSRBD04G",
+        "total_impressoes": "3,975.7",
+        "consumivel_preto": "90%",
+        "kit_adf": "100%"
+    },
+    {
+        "ip": "10.80.8.53",
+        "apelido": "I1851DJUR01",
+        "status": "Online",
+        "numero_serie": "BRBSQ3019V",
+        "total_impressoes": "66,511.8",
+        "consumivel_preto": "50%",
+        "kit_adf": "60%"
+    },
+    {
+        "ip": "10.80.8.54",
+        "apelido": "I1851CTPF01",
+        "status": "Online",
+        "numero_serie": "BRBSQ3019T",
+        "total_impressoes": "102,461.3",
+        "consumivel_preto": "50%",
+        "kit_adf": "50%"
+    },
+    {
+        "ip": "10.80.8.55",
+        "apelido": "I1851DIR01",
+        "status": "Online",
+        "numero_serie": "BRBSQ3019Y",
+        "total_impressoes": "131,559.0",
+        "consumivel_preto": "80%",
+        "kit_adf": "80%"
+    },
+    {
+        "ip": "10.80.8.56",
+        "apelido": "I1851DIR03",
+        "status": "Online",
+        "numero_serie": "BRBSRBD07D",
+        "total_impressoes": "56,570.5",
+        "consumivel_preto": "50%",
+        "kit_adf": "100%"
+    },
+    {
+        "ip": "10.80.8.57",
+        "apelido": "I1851NUCOM01",
+        "status": "Online",
+        "numero_serie": "BRBSQ3019X",
+        "total_impressoes": "81,104.2",
+        "consumivel_preto": "40%",
+        "kit_adf": "90%"
+    },
+    {
+        "ip": "10.80.8.58",
+        "apelido": "NPI0F455D",
+        "status": "Online",
+        "numero_serie": "BRBSQ6S00S",
+        "total_impressoes": "38,539.5",
+        "consumivel_preto": "50%",
+        "kit_adf": "100%"
+    },
+    {
+        "ip": "10.80.8.59",
+        "apelido": "I1851DAF01",
+        "status": "Online",
+        "numero_serie": "BRBSQ2H0MD",
+        "total_impressoes": "39,417.9",
+        "consumivel_preto": "50%",
+        "kit_adf": "100%"
+    },
+    {
+        "ip": "10.80.8.60",
+        "apelido": "I1851DGP01",
+        "status": "Online",
+        "numero_serie": "BRBSQ6P037",
+        "total_impressoes": "439,555.6",
+        "consumivel_preto": "90%",
+        "kit_adf": "60%"
+    },
+    {
+        "ip": "10.80.8.61",
+        "apelido": "I1851PROT01",
+        "status": "Online",
+        "numero_serie": "BRBSQ2W0FV",
+        "total_impressoes": "13,017.6",
+        "consumivel_preto": "70%",
+        "kit_adf": "50%"
+    },
+    {
+        "ip": "10.80.8.62",
+        "apelido": "I1851DGP02",
+        "status": "Online",
+        "numero_serie": "BRBSQ3019W",
+        "total_impressoes": "477,237.5",
+        "consumivel_preto": "70%",
+        "kit_adf": "50%"
+    },
+    {
+        "ip": "10.80.8.67",
+        "apelido": "I1851NIN01",
+        "status": "Online",
+        "numero_serie": "BRBSQ2W0FR",
+        "total_impressoes": "295,685.7",
+        "consumivel_preto": "90%",
+        "kit_adf": "70%"
+    },
+    {
+        "ip": "10.80.8.70",
+        "apelido": "Sem Apelido",
+        "status": "Offline",
+        "numero_serie": "N/A",
+        "total_impressoes": "N/A",
+        "consumivel_preto": "N/A",
+        "kit_adf": "N/A"
+    },
+    {
+        "ip": "10.80.8.74",
+        "apelido": "I1851DGOVI02",
+        "status": "Online",
+        "numero_serie": "BRCST1Q0JZ",
+        "total_impressoes": "11,742.7",
+        "consumivel_preto": "70%",
+        "kit_adf": "100%"
+    },
+    {
+        "ip": "10.80.8.75",
+        "apelido": "I1851DGOVI01",
+        "status": "Online",
+        "numero_serie": "BRBSQ2W0FX",
+        "total_impressoes": "65,115.2",
+        "consumivel_preto": "60%",
+        "kit_adf": "80%"
+    }
+]

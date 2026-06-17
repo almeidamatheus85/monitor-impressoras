@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  painel-impressoras:
+    build: .
+    container_name: monitor_impressoras
+    restart: always
+    ports:
+      - "5006:80" # Acesse via porta 5006 do seu servidor (pode mudar se quiser)
+    environment:
+      - DB_HOST=10.80.8.127  # O IP do teu servidor PostgreSQL na rede
+      - DB_NAME=db_impressoras
+      - DB_USER=admin_impressoras
+      - DB_PASS=Rios@ude1234
+      - DB_PORT=5001

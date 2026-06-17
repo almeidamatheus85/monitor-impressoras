@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitorização de Impressoras</title>
+    <link rel="icon" type="image/x-icon" href="fav.ico">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #f1f3f5; 
+            --card-bg: #ffffff; 
+            --text-main: #212529; 
+            --text-muted: #6c757d;
+            --status-ok: #2b8a3e; 
+            --status-warning: #e67e22; 
+            --status-danger: #c92a2a; 
+            --status-offline: #868e96;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 15px; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            box-sizing: border-box; 
+        }
+        *, *:before, *:after { box-sizing: inherit; }
+
+        /* Cabeçalho Fixo */
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #fff; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+            margin-bottom: 15px; 
+            flex-shrink: 0; 
+        }
+        .header h1 { font-size: 22px; margin: 0; display: flex; align-items: center; gap: 8px; }
+        
+        /* Sistema de Abas */
+        .tabs { display: flex; gap: 10px; }
+        .tab-btn { 
+            background: #e9ecef; 
+            border: none; 
+            font-size: 14px; 
+            font-weight: bold; 
+            color: var(--text-muted); 
+            cursor: pointer; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            transition: 0.2s;
+        }
+        .tab-btn.active { background: #007bff; color: white; }
+
+        .btn-atualizar { 
+            background-color: #4dabf7; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 14px; 
+        }
+        .btn-atualizar:hover { background-color: #339af0; }
+
+        /* Conteúdo das Abas */
+        .tab-content { display: none; flex-grow: 1; overflow: hidden; }
+        .tab-content.active { display: flex; flex-direction: column; }
+
+        /* ==========================================================================
+           ESTILOS: ABA 1 - PAINEL TV (ALTA DENSIDADE SEM SCROLL TOTAL)
+           ========================================================================== */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 15px; 
+            width: 100%; 
+            overflow-y: auto; 
+            padding-bottom: 10px; 
+        }
+
+        .card { 
+            background-color: var(--card-bg); 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            padding: 15px; 
+            border-left: 5px solid var(--status-ok); 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            justify-content: space-between; 
+        }
+        .card.card-warning { border-left-color: var(--status-warning); background-color: #fff9f4; }
+        .card.card-danger { border-left-color: var(--status-danger); background-color: #fff5f6; }
+        .card.card-offline { border-left-color: var(--status-offline); opacity: 0.7; }
+
+        .badge-diretoria { 
+            background: #e9ecef; 
+            color: #495057; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            align-self: flex-start; 
+            margin-bottom: 2px;
+        }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f1f3f5; padding-bottom: 6px; }
+        .card-title { font-size: 15px; font-weight: bold; margin: 0; color: #1c7ed6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 170px; }
+        .card-ip { font-size: 12px; color: var(--text-muted); font-family: monospace; }
+
+        .status-box { 
+            border: 1px solid #e9ecef; 
+            border-radius: 6px; 
+            padding: 6px 12px; 
+            background-color: #fff; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin: 4px 0; 
+        }
+        .status-box-title { font-size: 12px; color: var(--text-muted); font-weight: bold; }
+        .status-box-value { font-size: 18px; font-weight: bold; }
+
+        .info-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #495057; margin-top: 4px;}
+        .btn-copy { 
+            background: #e7f5ff; 
+            border: 1px solid #d0ebff; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            padding: 3px 8px; 
+            font-size: 11px; 
+            color: #1c7ed6; 
+            font-weight: bold;
+        }
+        .btn-copy:hover { background: #d0ebff; }
+
+        /* ==========================================================================
+           ESTILOS: ABA 2 - MÉTRICAS & DIRETORES (GRÁFICOS + TABELAS)
+           ========================================================================== */
+        /* Container Superior para os Gráficos Lado a Lado */
+        .report-charts { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            padding-bottom: 15px; 
+            flex-shrink: 0; 
+        }
+        
+        /* Container Inferior para as Tabelas Lado a Lado (Com Scroll Independente) */
+        .report-tables-layout { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            padding-top: 5px; 
+        }
+        
+        .report-box { 
+            background: #fff; 
+            border-radius: 8px; 
+            padding: 15px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            position: relative;
+        }
+        
+        .report-box h3 { margin-top: 0; margin-bottom: 10px; color: #1c7ed6; font-size: 16px; }
+
+        .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .report-table th, .report-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #dee2e6; }
+        .report-table th { background: #f8f9fa; font-weight: bold; color: #495057; position: sticky; top: 0; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+        <h1>🖨️ Central de Impressões</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="mudarAba('monitoramento')">Painel TV</button>
+            <button class="tab-btn" onclick="mudarAba('relatorios')">Métricas & Diretorias</button>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <a href="/api/exportar" class="btn-atualizar" style="background-color: #2b8a3e; text-decoration: none;">📥 Exportar Histórico (Excel)</a>
+            <button class="btn-atualizar" onclick="forcarAtualizacaoManual()">🔄 Atualizar Agora</button>
+        </div>
+    </div>
+
+    <div id="aba-monitoramento" class="tab-content active">
+        <div class="grid-container" id="painel"></div>
+    </div>
+
+    <div id="aba-relatorios" class="tab-content">
+        
+        <div class="report-charts">
+            <div class="report-box" style="height: 260px;">
+                <canvas id="chartDiretoria"></canvas>
+            </div>
+            <div class="report-box" style="height: 260px;">
+                <canvas id="chartSazonalidade"></canvas>
+            </div>
+        </div>
+        
+        <div class="report-tables-layout">
+            <div class="report-box">
+                <h3>🏢 Volume Consolidado por Diretoria (7 dias)</h3>
+                <table class="report-table">
+                    <thead><tr><th>Diretoria</th><th>Páginas Impressas</th></tr></thead>
+                    <tbody id="table-diretoria-corpo"></tbody>
+                </table>
+            </div>
+            
+            <div class="report-box">
+                <h3>📊 Visão Geral do Parque</h3>
+                <table class="report-table">
+                    <thead><tr><th>Impressora</th><th>Diretoria</th><th>Contador Atual</th><th>Toner</th></tr></thead>
+                    <tbody id="table-historico-corpo"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+        let chartDir = null; let chartSaz = null;
+
+        function mudarAba(abaId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('aba-' + abaId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function copiarTexto(texto) {
+            const textArea = document.createElement("textarea");
+            textArea.value = texto; document.body.appendChild(textArea); textArea.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(textArea);
+        }
+
+        function carregarDadosPainel() {
+            fetch('/api/dados?v=' + new Date().getTime())
+                .then(response => response.json())
+                .then(dados => {
+                    const painel = document.getElementById('painel');
+                    painel.innerHTML = ''; 
+                    dados.sort((a, b) => {
+                        let valA = parseInt(a.consumivel_preto.replace(/\D/g, '')) || 999;
+                        let valB = parseInt(b.consumivel_preto.replace(/\D/g, '')) || 999;
+                        return valA - valB;
+                    });
+                    dados.forEach(imp => {
+                        let tonerValue = parseInt(imp.consumivel_preto.replace(/\D/g, '')) || 100;
+                        let cardClass = ''; let textColor = 'var(--status-ok)';
+                        if (imp.status !== 'Online') { cardClass = 'card-offline'; textColor = 'var(--text-muted)'; }
+                        else if (tonerValue < 20) { cardClass = 'card-danger'; textColor = 'var(--status-danger)'; }
+                        else if (tonerValue < 30) { cardClass = 'card-warning'; textColor = 'var(--status-warning)'; }
+
+                        painel.innerHTML += `
+                            <div class="card ${cardClass}">
+                                <span class="badge-diretoria">${imp.diretoria}</span>
+                                <div class="card-header">
+                                    <h3 class="card-title" title="${imp.apelido}">${imp.apelido}</h3>
+                                    <span class="card-ip">${imp.ip}</span>
+                                </div>
+                                <div class="status-box">
+                                    <span class="status-box-title">⚫ Toner Preto</span>
+                                    <span class="status-box-value" style="color: ${textColor};">${imp.consumivel_preto}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span>Série: <strong>${imp.numero_serie}</strong></span>
+                                    <button class="btn-copy" onclick="copiarTexto('${imp.numero_serie}')">Copiar</button>
+                                </div>
+                                <div class="info-row">
+                                    <span>Páginas: <strong>${imp.total_impressoes}</strong></span>
+                                    <button class="btn-copy" onclick="copiarTexto('${imp.total_impressoes.replace(/,/g, '')}')">Copiar</button>
+                                </div>
+                            </div>`;
+                    });
+                });
+        }
+
+        function carregarDadosRelatorios() {
+            fetch('/api/relatorios?v=' + new Date().getTime())
+                .then(response => response.json())
+                .then(data => {
+                    const tCorpo = document.getElementById('table-historico-corpo');
+                    tCorpo.innerHTML = '';
+                    data.maquinas.forEach(m => {
+                        tCorpo.innerHTML += `<tr><td><strong>${m.apelido}</strong></td><td>${m.diretoria}</td><td>${m.total_atual || '0'}</td><td>${m.toner_atual || '0'}%</td></tr>`;
+                    });
+
+                    const tDir = document.getElementById('table-diretoria-corpo');
+                    if(data.uso_diretoria && data.uso_diretoria.length > 0) {
+                        tDir.innerHTML = '';
+                        data.uso_diretoria.forEach(u => {
+                            tDir.innerHTML += `<tr><td><strong>${u.diretoria}</strong></td><td>+ ${u.total_impresso || 0} pág.</td></tr>`;
+                        });
+                    }
+                    renderizarGraficos(data);
+                }).catch(() => {});
+        }
+
+        function renderizarGraficos(data) {
+            const ctxDir = document.getElementById('chartDiretoria').getContext('2d');
+            const ctxSaz = document.getElementById('chartSazonalidade').getContext('2d');
+            if(chartDir) chartDir.destroy();
+            if(chartSaz) chartSaz.destroy();
+
+            chartDir = new Chart(ctxDir, {
+                type: 'bar',
+                data: {
+                    labels: data.uso_diretoria.map(u => u.diretoria),
+                    datasets: [{ label: 'Páginas Impressas', data: data.uso_diretoria.map(u => u.total_impresso), backgroundColor: '#339af0', borderRadius: 4 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Consumo por Departamento (7 dias)'}, legend: { display: false } } }
+            });
+
+            chartSaz = new Chart(ctxSaz, {
+                type: 'line',
+                data: {
+                    labels: data.sazonalidade ? data.sazonalidade.map(s => s.data_label) : [],
+                    datasets: [{ label: 'Páginas/Dia', data: data.sazonalidade ? data.sazonalidade.map(s => s.delta_dia) : [], borderColor: '#2b8a3e', borderWidth: 3, fill: true, backgroundColor: 'rgba(43, 138, 62, 0.08)', tension: 0.35 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Sazonalidade do Parque'}, legend: { display: false } } }
+            });
+        }
+
+        // Função do Botão "Atualizar Agora" (Tempo Real)
+        function forcarAtualizacaoManual() {
+            const btn = document.querySelector('.btn-atualizar');
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = '⏳ Lendo Impressoras...';
+            btn.disabled = true;
+
+            fetch('/api/atualizar', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    carregarDadosPainel();
+                    carregarDadosRelatorios();
+                    btn.innerHTML = '✅ Concluído!';
+                    setTimeout(() => { btn.innerHTML = textoOriginal; btn.disabled = false; }, 3000);
+                })
+                .catch(err => {
+                    btn.innerHTML = '❌ Erro de Conexão';
+                    setTimeout(() => { btn.innerHTML = textoOriginal; btn.disabled = false; }, 3000);
+                });
+        }
+
+        function executarCargaCompleta() { carregarDadosPainel(); carregarDadosRelatorios(); }
+        window.onload = executarCargaCompleta;
+        setInterval(executarCargaCompleta, 60000); 
+    </script>
+</body>
+</html>
